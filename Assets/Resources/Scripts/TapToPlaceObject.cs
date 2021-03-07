@@ -80,6 +80,10 @@ public class TapToPlaceObject : MonoBehaviour
         if (Input.touchCount > 0)
         {
             touchPosition = Input.GetTouch(0).position;
+            if ( BlockUI.IsPointOverUIObject(touchPosition) )
+            {
+                return false;
+            }
             return true;
         }
 
