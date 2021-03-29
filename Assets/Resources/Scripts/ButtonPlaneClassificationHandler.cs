@@ -6,14 +6,12 @@ using UnityEngine.XR.ARFoundation;
 
 public class ButtonPlaneClassificationHandler : MonoBehaviour
 {
-    public ARSessionOrigin aRSessionOrigin;
-    private TapToPlaceObject tapToPlaceObject;
+    public TapToPlaceObject tapToPlaceObject;
     private bool enable;
     private Button button;
 
     private void Awake()
     {
-        tapToPlaceObject = aRSessionOrigin.GetComponent<TapToPlaceObject>();
         enable = tapToPlaceObject.enablePlaneClassification;
         button = gameObject.GetComponent<Button>();
     }
@@ -30,21 +28,17 @@ public class ButtonPlaneClassificationHandler : MonoBehaviour
         button.onClick.AddListener(TurnOnAndOff);
     }
 
-    void Update()
-    {
-        // enable is putting here instead of in TurnOnAndOff because enable can be modified on another script or place
-        enable = tapToPlaceObject.enablePlaneClassification;
-    }
-
     void TurnOnAndOff()
     {
         if (enable)
         {
+            enable = false;
             tapToPlaceObject.enablePlaneClassification = false;
             button.GetComponentInChildren<Text>().text = "Enable Plane Classification";
         }
         else
         {
+            enable = true;
             tapToPlaceObject.enablePlaneClassification = true;
             button.GetComponentInChildren<Text>().text = "Disable Plane Classification";
         }
